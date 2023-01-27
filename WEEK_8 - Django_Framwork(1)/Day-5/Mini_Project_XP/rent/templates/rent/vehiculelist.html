@@ -1,0 +1,59 @@
+{% extends 'rent/home.html' %}
+
+{% block title %}
+    Vehicule list
+{% endblock title %}
+
+
+{% block content %}
+
+<a href=" {% url 'addVehicule' %} "><button class=" btn btn-info">Add Vehicle</button></a>
+
+<table class = "table table-striped table-dark table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>Vehicule Type</th>
+        <th>Vehicule Size</th>
+        {% if len == 1 %}
+            <th>Date Create</th>
+            <th>Realy cost</th>
+            <th>Availablity</th>
+            {% if av == 1 %}<th>Action</th>{% endif %}
+        {% endif %}
+        {% if len != 1 %}
+
+            <th>Action</th>
+
+        {%endif%}
+    </tr>
+    {% for model in models %}
+    <tr>
+        <td> {{model.id}} </td>
+        <td>{{model.vehicule_type}} </td>
+        <td>{{model.vehicule_size}}</td>
+        {% if len == 1 %}
+            <td> {{model.date_created}} </td>
+            <td> {{model.real_cost}} </td>
+            <td> {% if av == 0 %} available {% endif %}{% if av == 1 %} Not available{% endif %} </td>
+        {% if av == 1 %} <td> <a href="{% url 'returnVehicule' model.id %}"><button class="btn btn-info">Return</button></a> </td> {% endif %}
+        {%endif%}
+        {% if len != 1 %}
+            <td></td>
+            <td> <a href=" {% url 'detailVehicule' model.id  %} "><button class = "btn btn-warning">Detail</button></a> </td>
+
+        {%endif%}
+
+     </tr>
+    {% endfor %}
+</table>
+{% if len == 1 %}
+            <a href="{% url 'vehiculelist' %}"><button class = "btn btn-success">Retour</button></a>
+{%endif%}
+
+<a href="{% url 'home0' %}"><button class="btn btn-info">HOME</button></a>
+{% if len != 1 %}
+<a href="{% url 'addVehicule' %}"><button class = "btn btn-success"> Add Vehicule</button></a>
+<br> <br>
+{% endif %}
+
+{% endblock content %}

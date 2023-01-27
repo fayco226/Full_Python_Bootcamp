@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    
+	<title>
+			{% block title %}Personne{% endblock title %}
+	</title>
+    
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+	{% block content %}
+	<h1>All person and number</h1>
+    
+	<a href="{% url 'add' %}">Add new phone<a>
+		
+<table class = "table table-striped table-dark table-bordered">
+	<tr>
+		<th>id</th>
+		<th>name</th>
+		<th>phone</th>
+	</tr>
+
+	{% for personne in personnes %}
+	<tr>
+		<td>{{personne.id}}</td>
+		<td><a href="{% url 'name' personne.name%}">{{personne.name}}</a></td>
+		<td><a href="{% url 'phonenumber' personne.phone  %}">{{personne.phone}}</a></td>
+		
+	</tr>
+	{% endfor %}
+   
+</table>
+ {% endblock content %}
+</body>
+</html>

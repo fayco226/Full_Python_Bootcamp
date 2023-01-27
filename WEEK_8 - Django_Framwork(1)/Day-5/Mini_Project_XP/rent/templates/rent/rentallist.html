@@ -1,0 +1,64 @@
+{% extends 'rent/home.html' %}
+
+{% block title %}
+    rental list
+{% endblock title %}
+
+
+{% block content %}
+<a href=" {% url 'addRental' %} "><button class=" btn btn-info">Add Rental</button></a>
+    
+<table class = "table table-striped table-dark table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>Customer</th>
+        <th>Vehicule</th>
+        {% if len == 1 %}
+            <th>Rental date</th>
+            <th>Return date</th>
+        {% endif %}
+        {% if len != 1 %}
+            <th>Action</th>
+        {%endif%}
+    </tr>
+    {% for model in models %}
+    <tr>
+        <td> {{model.id}} </td>
+        <td>{{model.customer}} </td>
+        <td>{{model.vehicule}}</td>
+        {% if len == 1 %}
+            <td> {{model.rental_date}} </td>
+            <td> {{model.return_date}}/not return </td>
+        {%endif%}
+        {% if len != 1 %}
+            <td> <a href=" {% url 'detailRental' model.id  %} "><button class = "btn btn-warning">Detail</button></a>   </td>
+        {%endif%}
+
+     </tr>
+    {% endfor %}
+</table>
+{% if len == 1 %}
+            <a href="{% url 'rentallist' %}"><button class = "btn btn-success">Retour</button></a>
+{%endif%}
+<a href="{% url 'home0' %}"><button class="btn btn-info">HOME</button></a>
+{% if len != 1 %}
+<a href="{% url 'addRental' %}"><button class = "btn btn-success"> Add Rental</button></a>
+<br> <br>
+{% if models.has_previous %}
+<a href="?page=1"> <button class = "btn btn-info" > &laquo; first</button> </a>
+<a href="?page={{ models.previous_page_number }}"><button class = "btn btn-info" > previous</button></a>
+{% endif %}
+
+
+Page {{ models.number }} of {{ models.paginator.num_pages }}.
+
+
+{% if models.has_next %}
+<a href="?page={{ models.next_page_number }}"><button class = "btn btn-info" > next</button></a>
+<a href="?page={{ models.paginator.num_pages }}"><button class = "btn btn-info" > last &raquo; </button></a>
+
+{% endif %}
+
+{% endif %}
+{% endblock content %}
+    

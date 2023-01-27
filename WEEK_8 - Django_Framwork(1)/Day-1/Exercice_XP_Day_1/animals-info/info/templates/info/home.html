@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        
+        <title>Animals</title>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  </head>
+  <body>
+    
+    
+   
+        {% for d,s in data.items  %}
+            <h1>{{d}}</h1>
+            <table class = "table table-dark table-striped  table-bordered">
+
+                {% for a in s %}
+                <thead class="thead-dark">
+                    {% if a == s.0 %}
+                        <tr>
+                          
+                                <th>ID</th>
+                                <th>Name</th>
+                                {% if d == "animals" %}<th>Family</th>
+                                <th></th>{% endif %}
+                                {% if d == "families"  %} <th></th> {% endif %}
+
+                                
+                                
+                                
+                    </tr>
+                </thead>
+                    {% endif %}
+                    <tr>
+                        <td>{{a.id}}</td>
+                        <td>{{a.name}}</td>
+                        {% if d == "animals"  %}
+                        <td>{{a.family }} </td>
+                        <td><a href="{% url 'animal' a.id %}">Details</a></td>
+                        {% endif %}
+                        {% if d == "families"  %}<td><a href="{% url 'family' a.id %}">Animals</a></td>{% endif %}
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endfor %}
+    </body>
+</html>

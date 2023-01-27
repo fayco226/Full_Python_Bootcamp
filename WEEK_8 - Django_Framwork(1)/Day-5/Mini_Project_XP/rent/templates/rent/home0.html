@@ -1,0 +1,15 @@
+{% extends 'rent/home.html' %}
+
+{% block title %}
+    HOME
+{% endblock title %}
+{% block content %}
+
+    <h1>Menu</h1>
+
+<a href="{% url 'rentallist' %}"><button class = "btn btn-info">RENTAL</button></a>
+<a href="{% url 'home' %}"><button class = "btn btn-info">CUSTOMER</button></a>
+<a href="{% url 'vehiculelist' %}"><button class = "btn btn-info">VEHICULE</button></a>
+
+
+{% endblock content %}

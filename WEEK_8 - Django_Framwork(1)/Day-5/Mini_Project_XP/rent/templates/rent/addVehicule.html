@@ -1,0 +1,12 @@
+{% extends 'rent/home.html' %}
+{% block title %}
+    Add Vehicule
+{% endblock title %}
+
+ {% block content %}
+            <form method = "POST">
+                {{ form.as_p }}
+                {% csrf_token %}
+                <button type= "submit" class = "btn btn-success">Add customer</button></a>
+            </form>
+ {% endblock content %}

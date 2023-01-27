@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  </head>
+  <body>
+    <h1>Animal INFO</h1>
+    <table class = "table table-striped table-dark table-bordered">
+      <thead>
+        <tr>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Legs</th>
+              <th>Weight</th>
+              <th>Height</th>
+              <th>Speed</th>
+              <th>Family</th>
+              
+            </tr>
+      </thead>
+            
+      
+           
+            
+              <tr>
+                <td>{{ data.id }}</td>
+                <td>{{ data.nameF }}</td>
+                <td>{{ data.legs }}</td>
+                <td>{{ data.weight }}</td>
+                <td>{{ data.height }}</td>
+                <td>{{ data.speed }}</td>
+                <td><a href ="{% url 'family' data.family_fk_id %}">{{ name }}</a></td>
+                
+              </tr>
+              
+            
+          </table>
+
+    </body>
+</html>
+
