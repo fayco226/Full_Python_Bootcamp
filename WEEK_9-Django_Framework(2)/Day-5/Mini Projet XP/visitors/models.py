@@ -10,71 +10,74 @@ class Visitor (models.Model):
     city = models.CharField(max_length=100)
     country = models.CharField(max_length=100)
 
-
     def __str__(self):
-       return self.last_name + self.first_name
-   
+        return self.last_name +' '+ self.first_name
+
+
 class Bedroom_type (models.Model):
-   name = models.CharField(max_length=150)
-   
-   def __str__(self):
-       return self.name
-   
-class Bedroom_size(models.Model):
-    name = models.CharField(max_length = 150)
-    
+    name = models.CharField(max_length=150)
+
     def __str__(self):
         return self.name
 
-    
+
+class Bedroom_size(models.Model):
+    name = models.CharField(max_length=150)
+
+    def __str__(self):
+        return self.name
+
+
 class Bedroom(models.Model):
     type_bedroom = models.ForeignKey(Bedroom_type, on_delete=models.CASCADE)
     size_bedroom = models.ForeignKey(Bedroom_size, on_delete=models.CASCADE)
     cost = models.FloatField()
-    photo = models.ImageField(upload_to='img_chambre',default='img_chambre/default.jpg')
+    photo = models.ImageField(upload_to='img_chambre',
+                              default='img_chambre/default.jpg')
     date_created = models.DateField(auto_now_add=True)
     avaibility = models.BooleanField(default=True)
     
-    def photoUrl(self ):
-        try:
-            url=self.photo.url 
-        except : 
-            url="img_chambre/default.jpg"
-        return url
-    
     def __str__(self):
-        return self.type_bedroom
+        return self.type_bedroom.name +' '+self.size_bedroom.name 
+    
+
 
 class Review(models.Model):
 
     visitor = models.ForeignKey(Visitor, on_delete=models.CASCADE)
     review = models.TextField()
-    
-
 
     def __str__(self):
-        return str(self.visitor) + str(self.review)
+        return str(self.visitor) +'  '+ str(self.review)
+
 
 class Simple_Reviews(models.Model):
     name = models.CharField(max_length=100)
     review = models.TextField()
-    
+
     def __str__(self):
         return str(self.name) + str(self.review)
 
 
-
 class Book(models.Model):
     visitor = models.ForeignKey(Visitor, on_delete=models.CASCADE)
-    bedroom = models.ForeignKey(Bedroom, on_delete=models.CASCADE, limit_choices_to={'avaibility': True})
+    bedroom = models.ForeignKey(
+        Bedroom, on_delete=models.CASCADE, limit_choices_to={'avaibility': True})
     date_created = models.DateField(auto_now_add=True)
     date_update = models.DateField(auto_now=True)
-    
+
     def save(self, *args, **kwargs):
+        super().save(*args,**kwargs)
         bedroom = self.bedroom
         bedroom.avaibility = False
+        bedroom.save()
     
-    
-    def __str__(self):
-         return self.visitor
+    def delete(self, *args, **kwargs):
+        bedroom = self.bedroom
+        bedroom.avaibility = True
+        bedroom.save()
+        super().delete(*args,**kwargs)
+        
 
+    def __str__(self):
+        return self.visitor.first_name

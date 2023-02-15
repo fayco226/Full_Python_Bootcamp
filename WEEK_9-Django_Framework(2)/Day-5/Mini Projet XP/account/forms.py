@@ -26,7 +26,7 @@ class RegisterForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         model = get_user_model()
-        fields = ['username', 'email', 'first_name', 'last_name', 'role', 'phone','profil_photo', 'password1', 'password2']
+        fields = ['username', 'email', 'first_name', 'last_name', 'phone','profil_photo', 'password1', 'password2']
         widgets = {
             'username' :forms.TextInput(attrs = {'class': "form-control", 
                                                  'placeholder': "username", 
@@ -48,6 +48,5 @@ class RegisterForm(UserCreationForm):
                                                   'aria-label':"last name", 
                                                   'aria-describedby':"name-addon"}),
             
-            'role':  forms.Select(attrs = {'class': "form-control"}),
         
         }
